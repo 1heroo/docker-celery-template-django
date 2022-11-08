@@ -8,8 +8,8 @@ services:
       - 8000:8000
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/app/
-      - static:/app/static
+      - .:/usr/src/app/
+      - static:/usr/src/app/static
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
