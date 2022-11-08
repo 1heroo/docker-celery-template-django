@@ -8,7 +8,8 @@ services:
       - 8000:8000
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./usr/src/app
+      - .:/app/
+      - static:/app/static
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
@@ -19,7 +20,7 @@ services:
     build: .
     command: "celery -A logic.tasks.celery worker -B --loglevel=info"
     volumes:
-      - ./usr/src/app
+      - /app/
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
@@ -31,3 +32,5 @@ services:
     image: redis
 
 
+volumes:
+  static:
