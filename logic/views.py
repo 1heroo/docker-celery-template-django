@@ -3,8 +3,8 @@ from django.shortcuts import render, redirect
 import json
 
 
-def handler(request, exception):
-    return redirect('home')
+# def handler(request, exception):
+#     return redirect('home')
 
 
 def index(request):

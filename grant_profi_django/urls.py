@@ -24,4 +24,4 @@ urlpatterns = [
 ]
 
 
-handler404 = views.handler
+# handler404 = views.handler

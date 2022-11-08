@@ -1,8 +1,7 @@
 FROM python:3.10
 
 #RUN mkdir "/site"
-COPY . /site/
-WORKDIR /site
+WORKDIR ./usr/src/app
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -16,3 +15,4 @@ RUN pip install -r requirements.txt
 
 #CMD ['python', 'manage.py', 'migrate']
 
+COPY . .
