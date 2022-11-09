@@ -1,15 +1,28 @@
 version: '3.8'
 
 services:
+  nginx:
+    build:
+      context: ./nginx/
+    ports:
+      - 80:80
+    volumes:
+#      - ./nginx/static/:/usr/share/nginx/static/
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - static_files:/home/app/static
 
   web:
     build: .
-    ports:
-      - 8000:8000
-    command: python manage.py runserver 0.0.0.0:8000
+#    ports:
+#      - 8000:8000
+    expose:
+      - 8000
+#    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn grant_profi_django.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - .:/usr/src/app/
-      - static:/usr/src/app/static
+      - static_files:/app/static
+#      - static_volume:/usr/src/app/static
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
@@ -27,10 +40,9 @@ services:
     depends_on:
       - web
       - redis
-
   redis:
     image: redis
 
-
+#
 volumes:
-  static:
+  static_files:
