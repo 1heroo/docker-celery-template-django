@@ -7,9 +7,8 @@ services:
     ports:
       - 80:80
     volumes:
-#      - ./nginx/static/:/usr/share/nginx/static/
       - ./nginx/conf.d/:/etc/nginx/conf.d/
-      - static_files:/home/app/static
+
 
   web:
     build: .
@@ -17,7 +16,6 @@ services:
 #      - 8000:8000
     expose:
       - 8000
-#    command: python manage.py runserver 0.0.0.0:8000
     command: gunicorn grant_profi_django.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - .:/usr/src/app/
